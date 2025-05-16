@@ -70,8 +70,7 @@ function Open({ children, opens: opensWindowName }) {
 	const { open } = useContext(ModalContext);
 
 	return cloneElement(children, {
-		onClick: (e) => {
-			e.stopPropagation(); // prevent document listener from immediately closing modal for outside click
+		onClick: () => {
 			open(opensWindowName);
 		},
 	});
