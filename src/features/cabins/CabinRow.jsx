@@ -5,11 +5,11 @@ import { BiEdit, BiTrash } from 'react-icons/bi';
 import { HiSquare2Stack } from 'react-icons/hi2';
 import { useCreateCabin } from './useCreateCabin';
 import CreateCabinForm from './CreateCabinForm';
-import Button from '../../ui/Button';
 import Spinner from '../../ui/Spinner';
 import Modal from '../../ui/Modal';
 import Confirm from '../../ui/Confirm';
 import Table from '../../ui/Table';
+import Menus from '../../ui/Menus';
 
 const Img = styled.img`
 	display: block;
@@ -65,45 +65,47 @@ function CabinRow({ cabin }) {
 			{discount ? <Discount>{formatCurrency(discount)}</Discount> : <span>&mdash;</span>}
 			<div>
 				<Modal>
-					{/* modal to confirm duplicating a cabin */}
-					<Modal.Open opens="confirm-duplicate">
-						<Button size="small">
-							<HiSquare2Stack></HiSquare2Stack>
-						</Button>
-					</Modal.Open>
-					<Modal.Window name="confirm-duplicate">
-						<Confirm
-							operation="Duplicate"
-							resourceName={`Cabin ${name}`}
-							onConfirm={handleDuplicate}
-							disabled={isCreating}
-						/>
-					</Modal.Window>
+					<Menus.Menu>
+						{/* toggle menu list */}
+						<Menus.Toggle id={cabinId} />
 
-					{/* modal for editing a cabin */}
-					<Modal.Open opens="edit-form">
-						<Button size="small">
-							<BiEdit></BiEdit>
-						</Button>
-					</Modal.Open>
-					<Modal.Window name="edit-form">
-						<CreateCabinForm cabinToEdit={cabin} />
-					</Modal.Window>
+						<Menus.List id={cabinId}>
+							<Modal.Open opens="confirm-duplicate">
+								<Menus.Button icon={<HiSquare2Stack />}>Duplicate</Menus.Button>
+							</Modal.Open>
+							<Modal.Open opens="edit-form">
+								<Menus.Button icon={<BiEdit />}>Edit</Menus.Button>
+							</Modal.Open>
+							<Modal.Open opens="confirm-delete">
+								<Menus.Button icon={<BiTrash />}>Delete</Menus.Button>
+							</Modal.Open>
+						</Menus.List>
 
-					{/* modal to confirm deleting a cabin */}
-					<Modal.Open opens="confirm-delete">
-						<Button size="small">
-							<BiTrash></BiTrash>
-						</Button>
-					</Modal.Open>
-					<Modal.Window name="confirm-delete">
-						<Confirm
-							operation="Delete"
-							resourceName={`Cabin ${name}`}
-							onConfirm={() => deleteCabin(cabinId)}
-							disabled={isDeleting}
-						/>
-					</Modal.Window>
+						{/* modal to confirm duplicating a cabin */}
+						<Modal.Window name="confirm-duplicate">
+							<Confirm
+								operation="Duplicate"
+								resourceName={`Cabin ${name}`}
+								onConfirm={handleDuplicate}
+								disabled={isCreating}
+							/>
+						</Modal.Window>
+
+						{/* modal for editing a cabin */}
+						<Modal.Window name="edit-form">
+							<CreateCabinForm cabinToEdit={cabin} />
+						</Modal.Window>
+
+						{/* modal to confirm deleting a cabin */}
+						<Modal.Window name="confirm-delete">
+							<Confirm
+								operation="Delete"
+								resourceName={`Cabin ${name}`}
+								onConfirm={() => deleteCabin(cabinId)}
+								disabled={isDeleting}
+							/>
+						</Modal.Window>
+					</Menus.Menu>
 				</Modal>
 			</div>
 		</Table.Row>
