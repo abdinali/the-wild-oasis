@@ -57,7 +57,7 @@ function CabinRow({ cabin }) {
 
 	if (isCreating) return <Spinner />;
 	return (
-		<Table.Row role="row">
+		<Table.Row>
 			<Img src={image} />
 			<Cabin>{name}</Cabin>
 			<div>{maxCapacity} guests</div>
