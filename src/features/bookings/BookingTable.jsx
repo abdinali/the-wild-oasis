@@ -1,4 +1,3 @@
-import { useSearchParams } from 'react-router-dom';
 import { useGetBookings } from './useGetBookings';
 import BookingRow from './BookingRow';
 import Table from '../../ui/Table';
