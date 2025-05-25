@@ -16,5 +16,6 @@ module.exports = {
 		'no-unused-vars': 'warn',
 		'no-constant-condition': 'warn',
 		'react/prop-types': 'off',
+		'no-mixed-spaces-and-tabs': 'off',
 	},
 };
