@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom';
 import { useGetBookings } from './useGetBookings';
 import BookingRow from './BookingRow';
 import Table from '../../ui/Table';
@@ -5,11 +6,28 @@ import Menus from '../../ui/Menus';
 import Empty from '../../ui/Empty';
 import Spinner from '../../ui/Spinner';
 import Pagination from '../../ui/Pagination';
+import { useEffect } from 'react';
 
 function BookingTable() {
 	const { isLoading, bookings, count } = useGetBookings();
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	useEffect(
+		function () {
+			if (!isLoading && bookings.length === 0) {
+				const page = Number(searchParams.get('page'));
+				// go back 1 page if user deleted all bookings on a page that is >= page 2
+				if (page > 1) {
+					searchParams.set('page', page - 1);
+					setSearchParams(searchParams);
+				}
+			}
+		},
+		[isLoading, bookings.length, searchParams, setSearchParams]
+	);
 
 	if (isLoading) return <Spinner />;
+
 	if (!bookings.length) return <Empty resource="bookings" />;
 
 	return (
