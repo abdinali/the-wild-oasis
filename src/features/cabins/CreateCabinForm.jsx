@@ -86,7 +86,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
 					disabled={isWorking}
 					{...register('regularPrice', {
 						required: 'This field is required.',
-						min: { value: 1, message: 'Capacity should be at least 1.' },
+						min: { value: 1, message: 'Cabin needs a price.' },
 					})}
 				/>
 			</FormRow>
@@ -101,7 +101,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
 						required: 'This field is required.',
 						validate: (value) =>
 							Number(value) <= Number(getValues().regularPrice) ||
-							'Discount should be less than regular price of cabin.',
+							'Discount should not be more than the regular price of the cabin.',
 					})}
 				/>
 			</FormRow>
