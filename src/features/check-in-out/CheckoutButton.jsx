@@ -1,12 +1,12 @@
 import { useCheckout } from './useCheckOut';
 import Button from '../../ui/Button';
 
-function CheckoutButton({ bookingId, onClick }) {
+function CheckoutButton({ bookingId }) {
 	const { isCheckingOut, checkout } = useCheckout();
 
 	return (
 		<Button
-			onClick={onClick ? onClick : () => checkout(bookingId)}
+			onClick={() => checkout(bookingId)}
 			disabled={isCheckingOut}
 			variation="primary"
 			size="small"

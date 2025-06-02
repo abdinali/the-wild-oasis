@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import BookingDataBox from './BookingDataBox';
 import Row from '../../ui/Row';
@@ -15,7 +15,6 @@ import CheckoutButton from '../check-in-out/CheckoutButton';
 
 import { useMoveBack } from '../../hooks/useMoveBack';
 import { useGetBooking } from './useGetBooking';
-import { useCheckout } from '../check-in-out/useCheckOut';
 import { useDeleteBooking } from './useDeleteBooking';
 
 const HeadingGroup = styled.div`
@@ -25,10 +24,7 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
-	const [searchParams, setSearchParams] = useSearchParams();
-
 	const { booking, isLoading } = useGetBooking();
-	const { isCheckingOut, checkout } = useCheckout();
 	const { isDeleting, deleteBooking } = useDeleteBooking();
 
 	const moveBack = useMoveBack();
@@ -62,9 +58,7 @@ function BookingDetail() {
 					<Button onClick={() => navigate(`/checkin/${bookingId}`)}>Check in</Button>
 				)}
 				{status === 'checked-in' && (
-					<CheckoutButton onClick={() => checkout(bookingId)} disabled={isCheckingOut}>
-						Check out
-					</CheckoutButton>
+					<CheckoutButton bookingId={bookingId}>Check out</CheckoutButton>
 				)}
 				<Modal>
 					<Modal.Open opens="confirm-delete">

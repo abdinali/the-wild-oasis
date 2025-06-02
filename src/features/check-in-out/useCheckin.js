@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { updateBooking } from '../../services/apiBookings';
 import { toast } from 'react-hot-toast';
 
 export function useCheckin() {
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const queryClient = useQueryClient();
 
@@ -18,7 +19,12 @@ export function useCheckin() {
 		onSuccess: (data) => {
 			toast.success(`Booking #${data.id} successfully checked in.`);
 			queryClient.invalidateQueries({ active: true });
-			navigate(`/bookings?status=checked-in`);
+			// redirect back to dashboard if checked-in from dashboard, otherwise redirect to bookings page
+			if (location?.state?.from.startsWith('/dashboard')) {
+				navigate('/dashboard');
+			} else {
+				navigate(`/bookings?status=checked-in`);
+			}
 		},
 		onError: () => toast.error('There was an error while checking in.'),
 	});
