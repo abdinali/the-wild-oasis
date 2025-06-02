@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { format, isToday } from 'date-fns';
 
 import { useNavigate } from 'react-router-dom';
-import { useCheckout } from '../check-in-out/useCheckOut';
+import { useCheckout } from '../check-in-out/useCheckout';
 import { useDeleteBooking } from './useDeleteBooking';
 import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye, HiTrash } from 'react-icons/hi2';
 import { formatCurrency } from '../../utils/helpers';
