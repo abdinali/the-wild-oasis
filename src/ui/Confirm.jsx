@@ -38,11 +38,11 @@ function Confirm({ operation, resourceName, onConfirm, disabled, onCloseModal })
 			)}
 
 			<div>
-				<Button variation="secondary" disabled={disabled} onClick={onCloseModal}>
+				<Button $variation="secondary" disabled={disabled} onClick={onCloseModal}>
 					Cancel
 				</Button>
 				<Button
-					variation={operation === 'Delete' ? 'danger' : 'primary'}
+					$variation={operation === 'Delete' ? 'danger' : 'primary'}
 					disabled={disabled}
 					onClick={onConfirm}
 				>

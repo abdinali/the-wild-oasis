@@ -64,7 +64,7 @@ function BookingDetail() {
 				)}
 				<Modal>
 					<Modal.Open opens="confirm-delete">
-						<Button variation="danger">Delete Booking</Button>
+						<Button $variation="danger">Delete Booking</Button>
 					</Modal.Open>
 					{/* modal to confirm deleting a booking */}
 					<Modal.Window name="confirm-delete">
@@ -77,7 +77,7 @@ function BookingDetail() {
 					</Modal.Window>
 				</Modal>
 
-				<Button variation="secondary" onClick={moveBack}>
+				<Button $variation="secondary" onClick={moveBack}>
 					Back
 				</Button>
 			</ButtonGroup>
